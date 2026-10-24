@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
-import { basename, dirname, extname, join, relative, resolve } from 'node:path';
+import { basename, dirname, extname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 
@@ -30,6 +30,16 @@ function escapeHtml(value) {
 
 const renderer = new marked.Renderer();
 const defaultCodeRenderer = renderer.code.bind(renderer);
+const defaultLinkRenderer = renderer.link.bind(renderer);
+
+renderer.link = (link) => {
+  const href = link.href;
+  const isRelative = href && !/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href);
+  if (isRelative) {
+    link.href = href.replace(/\.md(?=([?#].*)?$)/i, '.html');
+  }
+  return defaultLinkRenderer(link);
+};
 
 renderer.code = (code) => {
   if (code.lang?.trim().split(/\s+/, 1)[0] === 'mermaid') {
@@ -39,19 +49,19 @@ renderer.code = (code) => {
 };
 
 function renderMarkdown(sourcePath, outputPath) {
-  const markdown = readFileSync(sourcePath, 'utf8');
-  const body = marked.parse(markdown, { renderer });
+  const markdown = readFileSync(sourcePath, 'utf8').replaceAll('\uFEFF', '');
+  const body = marked.parse(markdown, {
+    renderer,
+    gfm: true,
+    breaks: true
+  });
   const title = escapeHtml(basename(sourcePath, extname(sourcePath)));
-  const basePath = relative(dirname(outputPath), DOCS_DIR).replaceAll('\\', '/');
-  const baseHref = basePath ? `${basePath}/` : './';
-
   const html = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <base href="${baseHref}">
   <title>Tmura — ${title}</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
@@ -59,7 +69,10 @@ function renderMarkdown(sourcePath, outputPath) {
   </script>
   <style>
     :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: #0b1220; color: #e5edf8; line-height: 1.7; }
+    body { margin: 0; padding-top: 4.5rem; background: #0b1220; color: #e5edf8; line-height: 1.7; }
+    nav { position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem max(1rem, calc((100vw - 960px) / 2)); background: #08101d; border-bottom: 1px solid #26364e; }
+    nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+    nav a:hover { color: #bae6fd; text-decoration: underline; }
     main { box-sizing: border-box; width: min(100% - 2rem, 960px); margin: 3rem auto; padding: clamp(1.25rem, 4vw, 3rem); background: #111c2e; border: 1px solid #26364e; border-radius: 16px; }
     h1, h2, h3, h4 { color: #f7fbff; line-height: 1.25; }
     h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -79,7 +92,13 @@ function renderMarkdown(sourcePath, outputPath) {
   </style>
 </head>
 <body>
-  <main>
+<nav style='position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem 2rem; background: #08101d; border-bottom: 1px solid #26364e;'>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/index.html'>Home</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Home.html'>Wiki</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Examples.html'>Examples</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/DECISIONS.html'>ADRs</a>
+  </nav>
+<main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
 ${body}
   </main>
 </body>
@@ -92,6 +111,10 @@ ${body}
 }
 
 const jobs = [
+  {
+    source: join(ROOT, 'README.md'),
+    target: join(DOCS_DIR, 'README.html')
+  },
   {
     source: join(DOCS_DIR, 'DECISIONS.md'),
     target: join(DOCS_DIR, 'DECISIONS.html')
