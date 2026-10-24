@@ -4892,11 +4892,57 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 </head>
 <body>
   <nav class="site-navigation" aria-label="Documentation">
+    <a href="index.html">Índice</a>
     <a href="README.html">README</a>
     <a href="DECISIONS.html">Decisiones</a>
-    <a href="wiki/Home.html">Wiki</a>
+    <a href="wiki/Home.html">Wiki: Inicio</a>
+    <a href="wiki/Evidence-Standard.html">Estándar de evidencia</a>
+    <a href="wiki/Glossary.html">Glosario</a>
+    <a href="wiki/Architecture-Context.html">Contexto arquitectónico</a>
+    <a href="wiki/Onboarding-Guide.html">Guía de incorporación</a>
+    <a href="adrs-html/index.html">ADRs HTML</a>
+    <a href="diagrams/index.html">Diagramas HTML</a>
     <a href="https://github.com/NepoPetro/Archify-Bridge" target="_blank" rel="noopener noreferrer">Repositorio</a>
   </nav>
+  <section class="html-catalog" aria-labelledby="html-catalog-title">
+    <h1 id="html-catalog-title">Páginas HTML del repositorio</h1>
+    <p>Acceso directo a la documentación, los ADRs y los ejemplos de diagramas.</p>
+    <ul>
+      <li><a href="DECISIONS.html">Decisiones de arquitectura</a></li>
+      <li><a href="README.html">README del proyecto</a></li>
+      <li><a href="adrs-html/adr-001-archify-json-ir-is-the-single-source-of-truth.html">ADR 001 ARCHIFY JSON IR IS THE SINGLE SOURCE OF TRUTH</a></li>
+      <li><a href="adrs-html/adr-002-use-the-official-archify-cli-via-submodule.html">ADR 002 USE THE OFFICIAL ARCHIFY CLI VIA SUBMODULE</a></li>
+      <li><a href="adrs-html/adr-003-pin-the-submodule-to-an-exact-commit.html">ADR 003 PIN THE SUBMODULE TO AN EXACT COMMIT</a></li>
+      <li><a href="adrs-html/adr-004-preserve-topology-and-explicit-layout.html">ADR 004 PRESERVE TOPOLOGY AND EXPLICIT LAYOUT</a></li>
+      <li><a href="adrs-html/adr-005-only-export-formats-that-can-be-verified.html">ADR 005 ONLY EXPORT FORMATS THAT CAN BE VERIFIED</a></li>
+      <li><a href="adrs-html/adr-006-the-validator-fails-loudly.html">ADR 006 THE VALIDATOR FAILS LOUDLY</a></li>
+      <li><a href="adrs-html/adr-007-hybrid-diagram-ecosystem.html">ADR 007 HYBRID DIAGRAM ECOSYSTEM</a></li>
+      <li><a href="adrs-html/adr-008-the-conversion-contract-is-structural.html">ADR 008 THE CONVERSION CONTRACT IS STRUCTURAL</a></li>
+      <li><a href="adrs-html/adr-009-archify-scope-executive-views.html">ADR 009 ARCHIFY SCOPE EXECUTIVE VIEWS</a></li>
+      <li><a href="adrs-html/index.html">Índice de ADRs</a></li>
+      <li><a href="diagrams/archify/auth-platform-1-ingress.html">Diagrama · auth platform 1 ingress</a></li>
+      <li><a href="diagrams/archify/auth-platform-2-auth-storage.html">Diagrama · auth platform 2 auth storage</a></li>
+      <li><a href="diagrams/archify/auth-platform-3-governance.html">Diagrama · auth platform 3 governance</a></li>
+      <li><a href="diagrams/archify/auth-platform-4-observability.html">Diagrama · auth platform 4 observability</a></li>
+      <li><a href="diagrams/archify/auth-platform-governance.html">Diagrama · auth platform governance</a></li>
+      <li><a href="diagrams/archify/auth-platform-runtime.html">Diagrama · auth platform runtime</a></li>
+      <li><a href="diagrams/archify/example.html">Diagrama · example</a></li>
+      <li><a href="diagrams/authentication-platform.html">Diagrama · authentication platform</a></li>
+      <li><a href="diagrams/index.html">Índice de diagramas</a></li>
+      <li><a href="wiki/Architecture-Context.html">Wiki · Architecture Context</a></li>
+      <li><a href="wiki/Evidence-Standard.html">Wiki · Evidence Standard</a></li>
+      <li><a href="wiki/Glossary.html">Wiki · Glossary</a></li>
+      <li><a href="wiki/Home.html">Wiki · Home</a></li>
+      <li><a href="wiki/Onboarding-Guide.html">Wiki · Onboarding Guide</a></li>
+    </ul>
+  </section>
+  <style>
+    .html-catalog { padding: 1rem clamp(1rem, 3vw, 2rem); background: var(--panel); color: var(--text); font: 400 .9rem/1.5 system-ui, sans-serif; }
+    .html-catalog h1 { margin: 0 0 .4rem; font-size: 1.25rem; }
+    .html-catalog p { margin: 0 0 .5rem; color: var(--text-muted); }
+    .html-catalog ul { display: flex; flex-wrap: wrap; gap: .35rem 1rem; margin: 0; padding-left: 1.2rem; }
+    .html-catalog a { color: var(--arrow-emphasis); }
+  </style>
   <!-- Toolbar: theme, live visual style, trace motion, presentation stage, and export.
        Motion appears only for trace-enabled artifacts and has no shortcut;
        Keyboard: T toggles theme, S cycles style, F toggles the stage, E opens export. -->

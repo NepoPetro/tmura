@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <base href="../">
   <title>Tmura — Architecture-Context</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
@@ -12,7 +11,10 @@
   </script>
   <style>
     :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    body { margin: 0; background: #0b1220; color: #e5edf8; line-height: 1.7; }
+    body { margin: 0; padding-top: 4.5rem; background: #0b1220; color: #e5edf8; line-height: 1.7; }
+    nav { position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem max(1rem, calc((100vw - 960px) / 2)); background: #08101d; border-bottom: 1px solid #26364e; }
+    nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+    nav a:hover { color: #bae6fd; text-decoration: underline; }
     main { box-sizing: border-box; width: min(100% - 2rem, 960px); margin: 3rem auto; padding: clamp(1.25rem, 4vw, 3rem); background: #111c2e; border: 1px solid #26364e; border-radius: 16px; }
     h1, h2, h3, h4 { color: #f7fbff; line-height: 1.25; }
     h1 { font-size: clamp(2rem, 5vw, 3rem); }
@@ -32,23 +34,23 @@
   </style>
 </head>
 <body>
-  <nav class="docs-return" aria-label="Navegación del repositorio"><a href="../index.html">← Volver al índice de páginas</a></nav>
-  <style>.docs-return { box-sizing: border-box; max-width: 820px; margin: 1rem auto 0; padding: 0 1rem; font: 500 .95rem/1.5 system-ui, sans-serif; } .docs-return a { color: #34d399; }</style>
-
-  <main>
-<p>﻿# Architecture and Governance Context</p>
-<p>Tmura is not a standalone tool; it is the documentation engine for Imut.</p>
+<nav style='position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem 2rem; background: #08101d; border-bottom: 1px solid #26364e;'>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/index.html'>Home</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Home.html'>Wiki</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Examples.html'>Examples</a>
+  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/DECISIONS.html'>ADRs</a>
+  </nav>
+<main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
+<h1>Architecture and Governance Context</h1>
+<p>Tmura is the documentation engine for Imut. Imut requires a 7-layer data lineage diagram to satisfy governance requirements.</p>
 <h2>The Density Problem</h2>
-<p>Imut requires a 7-layer data lineage diagram (28 nodes) to satisfy governance and audit requirements. 
-Archify, the tool initially chosen for its excellent visual output, fails to render diagrams with more than 12 nodes due to layout engine constraints. </p>
-<p>As documented in <strong>ADR-009</strong>, the decision was made to use a hybrid approach:</p>
+<p>Archify fails to render diagrams with more than 12 nodes. As documented in ADR-009, we use a hybrid approach:</p>
 <ul>
-<li><strong>Archify:</strong> Used exclusively for executive views (8 to 12 nodes).</li>
-<li><strong>draw.io:</strong> Used for the detailed, 28-node faithful diagram.</li>
-<li><strong>Custom HTML:</strong> Used as the presentation layer, adding multilingual support and personal branding.</li>
+<li><strong>Archify:</strong> Executive views.</li>
+<li><strong>draw.io:</strong> Detailed, 28-node faithful diagram.</li>
+<li><strong>Custom HTML:</strong> Presentation layer.</li>
 </ul>
-<h2>The Principle</h2>
-<p>The client does not adapt to the tool. We adapt the tool to the client&#39;s governance needs. If a diagramming tool cannot represent the complexity of the architecture, it is scoped down or replaced.</p>
+<p>The client does not adapt to the tool.</p>
 
   </main>
 </body>
