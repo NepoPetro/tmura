@@ -1,5 +1,5 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
-import { basename, dirname, extname, join, resolve } from 'node:path';
+import { basename, dirname, extname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 
@@ -49,13 +49,16 @@ renderer.code = (code) => {
 };
 
 function renderMarkdown(sourcePath, outputPath) {
-  const markdown = readFileSync(sourcePath, 'utf8').replaceAll('\uFEFF', '');
+  let markdown = readFileSync(sourcePath, 'utf8');
+  if (markdown.charCodeAt(0) === 0xFEFF) markdown = markdown.slice(1);
   const body = marked.parse(markdown, {
     renderer,
     gfm: true,
     breaks: true
   });
   const title = escapeHtml(basename(sourcePath, extname(sourcePath)));
+  const relativeRoot = relative(dirname(outputPath), DOCS_DIR);
+  const root = relativeRoot ? `${relativeRoot.split(sep).join('/')}/` : './';
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -92,12 +95,12 @@ function renderMarkdown(sourcePath, outputPath) {
   </style>
 </head>
 <body>
-<nav style='position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem 2rem; background: #08101d; border-bottom: 1px solid #26364e;'>
-  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/index.html'>Home</a>
-  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Home.html'>Wiki</a>
-  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/wiki/Examples.html'>Examples</a>
-  <a style='color: #7dd3fc; font-weight: 600; text-decoration: none;' href='/Tmura/DECISIONS.html'>ADRs</a>
-  </nav>
+<nav>
+  <a href='${root}index.html'>Home</a>
+  <a href='${root}wiki/Home.html'>Wiki</a>
+  <a href='${root}wiki/Examples.html'>Examples</a>
+  <a href='${root}DECISIONS.html'>ADRs</a>
+</nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
 ${body}
   </main>
