@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/Tmura/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Tmura — adr-003-pin-the-submodule-to-an-exact-commit</title>
+  <title>Tmura — adr-008-the-conversion-contract-is-structural</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'strict' });
@@ -32,27 +33,38 @@
     .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
     @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
   </style>
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
+</style>
 </head>
-<body>
-<nav>
-  <a href='../index.html'>Home</a>
-  <a href='../wiki/Home.html'>Wiki</a>
-  <a href='../wiki/Examples.html'>Examples</a>
-  <a href='../DECISIONS.html'>ADRs</a>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
 </nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
-<h1>ADR-003 - Pin the submodule to an exact commit</h1>
-<p><strong>Context.</strong><br>Archify evolves. A submodule can be configured to follow a branch or to stay pinned to a specific commit.</p>
-<p><strong>Decision.</strong><br>Pin the submodule to an exact commit. Updates are explicit and reviewed.</p>
-<p><strong>Rationale.</strong><br>Reproducibility. A pipeline that validates and renders today must produce the same result six months from now. Following a branch would make builds depend on the state of the upstream repository at build time, which is not auditable.</p>
-<p>The pinned commit is the record of which version of the validator and renderer produced a given artifact. For data and architectural governance, that traceability is not optional.</p>
-<p><strong>Consequence.</strong><br>Updating Archify is a deliberate action:</p>
-<pre><code class="language-bash">git submodule update --remote vendor/archify
-git add vendor/archify
-git commit -m &quot;Update Archify submodule&quot;
-
-That commit is part of the audit trail.
-</code></pre>
+<h1>ADR-008: The Conversion Contract Is Structural</h1>
+<ul>
+<li><strong>Status:</strong> Accepted</li>
+<li><strong>Date:</strong> 2026-10-14</li>
+</ul>
+<h2>Context</h2>
+<p>Archify, Mermaid, and draw.io render diagrams using different engines. Their typography, styling, edge routing, and label placement cannot be expected to match exactly. ADR-004 specifies which structural information converters must preserve.</p>
+<h2>Decision</h2>
+<p>Define converter correctness by structural fidelity, not pixel-level visual parity. Preserve components, topology, direction, supported relationship semantics, and explicit geometry where the target format supports it. Treat target-specific styling and routing as approximate presentation.</p>
+<h2>Consequences</h2>
+<ul>
+<li>Visual differences between source and target renderings are expected and do not alone indicate a conversion defect.</li>
+<li>A structural mismatch is a defect even if the result looks polished.</li>
+<li>Documentation must distinguish guaranteed structure from approximate visual treatment.</li>
+<li>Users choose the rendering that suits their task: Archify HTML for executive communication and the target artifact for editing or detailed review.</li>
+</ul>
 
   </main>
 </body>

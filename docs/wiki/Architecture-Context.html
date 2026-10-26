@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/Tmura/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
@@ -32,13 +33,20 @@
     .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
     @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
   </style>
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
+</style>
 </head>
-<body>
-<nav>
-  <a href='../index.html'>Home</a>
-  <a href='../wiki/Home.html'>Wiki</a>
-  <a href='../wiki/Examples.html'>Examples</a>
-  <a href='../DECISIONS.html'>ADRs</a>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
 </nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
 <h1>Architecture and Governance Context</h1>
