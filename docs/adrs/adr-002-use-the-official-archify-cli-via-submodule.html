@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/Tmura/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Tmura — adr-006-the-validator-fails-loudly</title>
+  <title>Tmura — adr-002-use-the-official-archify-cli-via-submodule</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'strict' });
@@ -32,30 +33,38 @@
     .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
     @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
   </style>
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
+</style>
 </head>
-<body>
-<nav>
-  <a href='../index.html'>Home</a>
-  <a href='../wiki/Home.html'>Wiki</a>
-  <a href='../wiki/Examples.html'>Examples</a>
-  <a href='../DECISIONS.html'>ADRs</a>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
 </nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
-<h1>ADR-006: The Validator Fails Loudly</h1>
+<h1>ADR-002: Use the Official Archify CLI via Submodule</h1>
 <ul>
 <li><strong>Status:</strong> Accepted</li>
 <li><strong>Date:</strong> 2026-10-14</li>
 </ul>
 <h2>Context</h2>
-<p>Invalid diagram JSON can lead to incomplete or misleading exports. A successful process exit must mean that every discovered Archify source passed the authoritative validator.</p>
+<p>Archify defines the JSON schema and validation behavior for its diagram types. A repository-local schema or validator would duplicate those rules and could disagree with the official implementation.</p>
 <h2>Decision</h2>
-<p><code>npm run validate</code> returns a non-zero exit code if the Archify CLI is missing, a diagram type cannot be inferred, or any source fails validation. Diagnostics from the CLI are surfaced to the caller. CI validation is a required quality gate for changes to Archify sources.</p>
+<p>Use the official Archify CLI as the authority for validating Archify JSON. Include it as the <code>vendor/archify</code> Git submodule and have <code>src/utils/validator.js</code> discover source files, infer their diagram type from their directory, and invoke the CLI with machine-readable JSON output.</p>
+<p>The local validator is an orchestrator; it does not define a second schema.</p>
 <h2>Consequences</h2>
 <ul>
-<li>Invalid sources block the validation workflow instead of producing a success-shaped result.</li>
-<li>Contributors receive the CLI&#39;s rule diagnostics and can repair the source before export.</li>
-<li>The repository&#39;s GitHub Actions validation workflow runs <code>npm run validate</code> for pushes and pull requests targeting <code>main</code>.</li>
-<li>Merge protection must require the validation check for the blocking behavior to be enforced at repository level.</li>
+<li>A submodule checkout is required to run validation; initialize it with <code>git submodule update --init --recursive</code>.</li>
+<li>Validation follows the official CLI&#39;s schema and diagnostics.</li>
+<li>CLI changes are governed by the pinned submodule revision in ADR-003.</li>
+<li>Tmura does not add local schema extensions that would create a competing definition of validity.</li>
 </ul>
 
   </main>

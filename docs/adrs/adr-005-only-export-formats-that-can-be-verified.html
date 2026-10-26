@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <base href="/Tmura/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>Tmura — adr-002-use-the-official-archify-cli-via-submodule</title>
+  <title>Tmura — adr-005-only-export-formats-that-can-be-verified</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
   <script>
     mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'strict' });
@@ -32,31 +33,37 @@
     .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
     @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
   </style>
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
+</style>
 </head>
-<body>
-<nav>
-  <a href='../index.html'>Home</a>
-  <a href='../wiki/Home.html'>Wiki</a>
-  <a href='../wiki/Examples.html'>Examples</a>
-  <a href='../DECISIONS.html'>ADRs</a>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
 </nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
-<h1>ADR-002: Use the Official Archify CLI via Submodule</h1>
+<h1>ADR-005: Only Export Formats That Can Be Verified</h1>
 <ul>
 <li><strong>Status:</strong> Accepted</li>
 <li><strong>Date:</strong> 2026-10-14</li>
 </ul>
 <h2>Context</h2>
-<p>Archify defines the JSON schema and validation behavior for its diagram types. A repository-local schema or validator would duplicate those rules and could disagree with the official implementation.</p>
+<p>Potential diagram targets include Mermaid, draw.io, Lucidchart, and Miro. A converter is useful only if its output is accepted by the target and retains the intended diagram structure.</p>
 <h2>Decision</h2>
-<p>Use the official Archify CLI as the authority for validating Archify JSON. Include it as the <code>vendor/archify</code> Git submodule and have <code>src/utils/validator.js</code> discover source files, infer their diagram type from their directory, and invoke the CLI with machine-readable JSON output.</p>
-<p>The local validator is an orchestrator; it does not define a second schema.</p>
+<p>Implement and advertise only export formats whose generated artifacts can be verified end to end. Current exporters are Mermaid and draw.io. Add another target only after its format and import behavior can be tested with representative diagrams.</p>
+<p>Do not claim a native Lucidchart or Miro exporter where no corresponding, verified output format exists. If those products accept a supported intermediate format, document that workflow accurately instead.</p>
 <h2>Consequences</h2>
 <ul>
-<li>A submodule checkout is required to run validation; initialize it with <code>git submodule update --init --recursive</code>.</li>
-<li>Validation follows the official CLI&#39;s schema and diagnostics.</li>
-<li>CLI changes are governed by the pinned submodule revision in ADR-003.</li>
-<li>Tmura does not add local schema extensions that would create a competing definition of validity.</li>
+<li>The README&#39;s supported-format list describes working, verified behavior rather than planned integrations.</li>
+<li>New converters require examples that can be generated and opened or consumed by the target tool.</li>
+<li>Unsupported targets remain outside the implementation until verification is possible.</li>
 </ul>
 
   </main>

@@ -6,7 +6,7 @@ import { marked } from 'marked';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DOCS_DIR = join(ROOT, 'docs');
 const ADR_SOURCE_DIR = join(DOCS_DIR, 'adrs');
-const ADR_OUTPUT_DIR = join(DOCS_DIR, 'adrs-html');
+const ADR_OUTPUT_DIR = ADR_SOURCE_DIR;
 const WIKI_DIR = join(DOCS_DIR, 'wiki');
 
 function listMarkdownFiles(directory) {
@@ -49,9 +49,9 @@ renderer.code = (code) => {
 };
 
 function renderMarkdown(sourcePath, outputPath) {
-  let markdown = readFileSync(sourcePath, 'utf8');
-  if (markdown.charCodeAt(0) === 0xFEFF) markdown = markdown.slice(1);
-  const body = marked.parse(markdown, {
+  let content = readFileSync(sourcePath, 'utf8');
+  if (content.charCodeAt(0) === 0xFEFF) { content = content.slice(1); }
+  const body = marked.parse(content, {
     renderer,
     gfm: true,
     breaks: true
@@ -95,12 +95,6 @@ function renderMarkdown(sourcePath, outputPath) {
   </style>
 </head>
 <body>
-<nav>
-  <a href='${root}index.html'>Home</a>
-  <a href='${root}wiki/Home.html'>Wiki</a>
-  <a href='${root}wiki/Examples.html'>Examples</a>
-  <a href='${root}DECISIONS.html'>ADRs</a>
-</nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
 ${body}
   </main>
