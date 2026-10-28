@@ -1,0 +1,57 @@
+graph TD
+    user["User"]
+    frontend["Frontend (React)"]
+    bff["BFF"]
+    api_node["API Node.js"]
+    bcrypt["Password Hashing (bcrypt)"]
+    jwt["JWT"]
+    middleware["Auth Middleware"]
+    rate_limit["Rate Limiting"]
+    automatas["Session Automata"]
+    sha256_chain["SHA-256 Chain"]
+    ecdsa["ECDSA secp256k1"]
+    aes_gcm["AES-256-GCM"]
+    kms_hsm["KMS / HSM"]
+    digital_twin["Ephemeral Digital Twin"]
+    navier["Navier-Stokes KDF"]
+    pgbouncer["PgBouncer"]
+    postgres["PostgreSQL"]
+    users_table["users"]
+    audit_logs["audit_logs"]
+    audit_chain["Chained Audit Hash"]
+    dlq["DLQ"]
+    prometheus["Prometheus"]
+    grafana["Grafana"]
+    dashboards["Dashboards"]
+    dlt["DLT"]
+    slack["Slack Notifications"]
+    compliance["Compliance System"]
+    legal["Legal Framework"]
+    user -->|sends data| frontend
+    frontend -->|auth request| bff
+    bff -->|validates request| api_node
+    api_node -->|generates hash| bcrypt
+    api_node -->|issues token| jwt
+    api_node -->|guarded by| middleware
+    middleware -->|enforces| rate_limit
+    rate_limit -->|session state| automatas
+    bcrypt -->|audit event| sha256_chain
+    sha256_chain -->|signs transaction| ecdsa
+    ecdsa -->|encrypts record| aes_gcm
+    aes_gcm -->|key custody| kms_hsm
+    ecdsa -->|monitors session| digital_twin
+    sha256_chain -->|proposed KDF (rejected)| navier
+    api_node -->|queries| pgbouncer
+    pgbouncer -->|pooled connection| postgres
+    postgres -->|reads identity| users_table
+    postgres -->|writes audit| audit_logs
+    audit_logs -->|hash chained| audit_chain
+    api_node -->|processing failure| dlq
+    audit_chain -->|integrity alert| dlq
+    api_node -->|collects metrics| prometheus
+    prometheus -->|metrics| grafana
+    grafana -->|renders| dashboards
+    dlq -->|escalates| dlt
+    dlt -->|notifies| slack
+    dlt -->|reports| compliance
+    audit_chain -->|legal evidence| legal

@@ -5,8 +5,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const DOCS_DIR = join(ROOT, 'docs');
 
-const NAVIGATION = `<!-- NAV-INJECTED -->
-<nav aria-label="Main navigation">
+const NAVIGATION = `<nav aria-label="Main navigation">
   <a href="index.html">Home</a>
   <a href="wiki/Home.html">Wiki</a>
   <a href="DECISIONS.html">ADRs</a>
@@ -44,11 +43,6 @@ function injectNavigation(filePath) {
     if (html !== original) writeFileSync(filePath, html, 'utf8');
     return;
   }
-  if (html.includes('<!-- NAV-INJECTED -->')) {
-    if (html !== original) writeFileSync(filePath, html, 'utf8');
-    return;
-  }
-
   if (/<head\b[^>]*>/i.test(html)) {
     html = html.replace(/<\/head\s*>/i, `${NAV_STYLES}\n</head>`);
   }

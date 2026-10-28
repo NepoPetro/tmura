@@ -1,0 +1,11 @@
+graph TD
+    ecc["ECC / ECDSA"]
+    sha["SHA-256"]
+    aes["AES-256-GCM"]
+    audit["Audit & Traceability"]
+    looker["Looker Studio"]
+    navier["Navier-Stokes Vector"]
+    ecc -->|chain| sha
+    sha -->|encrypt| aes
+    aes -->|seal| audit
+    sha -->|proposed vector| navier

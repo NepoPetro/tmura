@@ -1,0 +1,24 @@
+graph TD
+    archify_json["Archify JSON"]
+    drawio_json["draw.io Source JSON"]
+    github_actions["GitHub Actions"]
+    archify_validator["Archify CLI Validator"]
+    archify_renderer["Archify Renderer"]
+    to_drawio["to-drawio.js"]
+    to_mermaid["to-mermaid.js"]
+    archify_html["Archify HTML"]
+    drawio_xml["draw.io XML"]
+    custom_html["Custom HTML"]
+    mermaid_output["Mermaid Source"]
+    project_docs["Project Documentation"]
+    archify_json -->|architecture source| github_actions
+    drawio_json -->|detailed lineage source| github_actions
+    github_actions -->|validate workflow| archify_validator
+    github_actions -->|export workflow| archify_renderer
+    github_actions -->|export workflow| to_drawio
+    github_actions -->|export workflow| to_mermaid
+    archify_renderer -->|executive HTML| archify_html
+    to_drawio -->|editable XML| drawio_xml
+    drawio_xml -->|presentation rendering| custom_html
+    to_mermaid -->|Mermaid source| mermaid_output
+    project_docs -->|documents CI workflows| github_actions

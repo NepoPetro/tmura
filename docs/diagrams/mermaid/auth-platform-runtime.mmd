@@ -1,0 +1,24 @@
+graph TD
+    user["End User"]
+    frontend["Frontend / Client"]
+    bff["BFF"]
+    bcrypt["bcrypt"]
+    auth["Auth Service"]
+    jwt["JWT"]
+    pgbouncer["PgBouncer"]
+    postgres["PostgreSQL"]
+    tables["users / audit_logs / metrics"]
+    dlq["DLQ / DLT"]
+    grafana["Grafana"]
+    logs["Structured Logs"]
+    user -->|HTTPS| frontend
+    frontend -->|API call| bff
+    bff -->|login| auth
+    auth -->|issue| jwt
+    auth -->|verify| bcrypt
+    auth -->|query| pgbouncer
+    pgbouncer -->|pool| postgres
+    postgres -->|read/write| tables
+    bff -->|emit| logs
+    logs -->|metrics| grafana
+    logs -->|failures| dlq
