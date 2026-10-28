@@ -2,13 +2,13 @@
 
 Bridge between [Archify](https://github.com/tt-a1i/archify) JSON IR and multiple diagramming tools.
 
-**Tmura** (תְּמוּרָה, "bridge" in Hebrew) is a satellite project of [Imut (1DFlfRMH)](https://github.com/NepoPetro), a data governance and digital rights platform. Tmura produces the data lineage diagrams that Imut requires as deliverables: an executive view for communication, and a detailed view for engineering and audit.
+**Tmura** (תְּמוּרָה, "bridge" in Hebrew) is a satellite project of [Imut (1DFlfRMH)](https://github.com/nepopetro/1DFlfRMH), a data governance and digital rights platform. Tmura produces the data lineage diagrams that Imut requires as deliverables: an executive view for communication, and a detailed view for engineering and audit.
 
 ## Why this project exists
 
 Imut needed to produce a data lineage diagram that reflects the actual end-to-end flow of authentication data across seven layers: origin, processing, security, storage, failures, observability, and events.
 
-Archify promised an AI-assisted path to that diagram. After evaluating it in depth (see [ADR-009](docs/DECISIONS.md#adr-009--archify-scope-executive-views-not-detailed-diagramming)), the conclusion was that Archify is excellent for executive views but does not scale to detailed diagrams with more than approximately 12 nodes.
+Archify promised an AI-assisted path to that diagram. After evaluating it in depth (see [ADR-009](docs/adrs/adr-009-archify-scope-executive-views.md)), the conclusion was that Archify is excellent for executive views but does not scale to detailed diagrams with more than approximately 12 nodes.
 
 Tmura solves that by separating the tool of record per diagram type.
 
@@ -80,7 +80,7 @@ npm run export:all                # Run all exporters
 
 ## Context: the Imut project
 
-Tmura exists to serve [Imut](https://github.com/NepoPetro). The current data lineage diagram covers the Imut authentication platform across seven layers:
+Tmura exists to serve [Imut](https://github.com/nepopetro/1DFlfRMH). The current data lineage diagram covers the Imut authentication platform across seven layers:
 
 1. **Origin** — end user, frontend
 2. **Processing** — BFF, API Node.js

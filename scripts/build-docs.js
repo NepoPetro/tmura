@@ -8,6 +8,7 @@ const DOCS_DIR = join(ROOT, 'docs');
 const ADR_SOURCE_DIR = join(DOCS_DIR, 'adrs');
 const ADR_OUTPUT_DIR = ADR_SOURCE_DIR;
 const WIKI_DIR = join(DOCS_DIR, 'wiki');
+let currentOutputPath = '';
 
 function listMarkdownFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -33,10 +34,14 @@ const defaultCodeRenderer = renderer.code.bind(renderer);
 const defaultLinkRenderer = renderer.link.bind(renderer);
 
 renderer.link = (link) => {
-  const href = link.href;
-  const isRelative = href && !/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(href);
+  let href = link.href;
+  const isRelative = href && !/^(?:[a-z][a-z\d+.-]*:|\/\/|#|\/)/i.test(href);
   if (isRelative) {
-    link.href = href.replace(/\.md(?=([?#].*)?$)/i, '.html');
+    href = href.replace(/^docs\//i, '');
+    href = href.replace(/\.md(?=([?#].*)?$)/i, '.html');
+    const pageDir = relative(DOCS_DIR, dirname(currentOutputPath)).split(sep).join('/');
+    const target = new URL(href, `https://tmura.invalid/tmura/${pageDir ? `${pageDir}/` : ''}`);
+    link.href = `${target.pathname}${target.search}${target.hash}`;
   }
   return defaultLinkRenderer(link);
 };
@@ -49,6 +54,7 @@ renderer.code = (code) => {
 };
 
 function renderMarkdown(sourcePath, outputPath) {
+  currentOutputPath = outputPath;
   let content = readFileSync(sourcePath, 'utf8');
   if (content.charCodeAt(0) === 0xFEFF) { content = content.slice(1); }
   const body = marked.parse(content, {
