@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  
+  <base href="/tmura/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
@@ -33,81 +33,21 @@
     .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
     @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
   </style>
-
-</head>
-<body style="">
-
-<nav id="tmura-nav">
-  <a href="index.html" class="nav-home">Inicio</a>
-  
-  <div class="dropdown">
-    <button class="dropbtn">Wiki ▾</button>
-    <div class="dropdown-content">
-      <a href="wiki/Home.html">Home</a>
-      <a href="wiki/Glossary.html">Glossary</a>
-      <a href="wiki/Architecture-Context.html">Architecture Context</a>
-      <a href="wiki/Onboarding-Guide.html">Onboarding Guide</a>
-      <a href="wiki/Evidence-Standard.html">Evidence Standard</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">ADRs ▾</button>
-    <div class="dropdown-content">
-      <a href="adrs/adr-001-archify-json-ir-is-the-single-source-of-truth.html">ADR-001: Single Source of Truth</a>
-      <a href="adrs/adr-002-use-the-official-archify-cli-via-submodule.html">ADR-002: Official CLI Submodule</a>
-      <a href="adrs/adr-003-pin-the-submodule-to-an-exact-commit.html">ADR-003: Pinned Commit</a>
-      <a href="adrs/adr-004-preserve-topology-and-explicit-layout.html">ADR-004: Preserve Topology</a>
-      <a href="adrs/adr-005-only-export-formats-that-can-be-verified.html">ADR-005: Verifiable Formats</a>
-      <a href="adrs/adr-006-the-validator-fails-loudly.html">ADR-006: Fail Loudly</a>
-      <a href="adrs/adr-007-hybrid-diagram-ecosystem.html">ADR-007: Hybrid Ecosystem</a>
-      <a href="adrs/adr-008-the-conversion-contract-is-structural.html">ADR-008: Structural Contract</a>
-      <a href="adrs/adr-009-archify-scope-executive-views.html">ADR-009: Archify Scope</a>
-    </div>
-  </div>
-
-  <div class="dropdown">
-    <button class="dropbtn">Diagramas ▾</button>
-    <div class="dropdown-content">
-      <a href="diagrams/authentication-platform.html">Lineage Completo</a>
-      <a href="diagrams/archify/auth-platform-1-ingress.html">Ingress (Archify)</a>
-      <a href="diagrams/archify/auth-platform-2-auth-storage.html">Auth & Storage (Archify)</a>
-      <a href="diagrams/archify/auth-platform-3-governance.html">Governance (Archify)</a>
-      <a href="diagrams/archify/auth-platform-4-observability.html">Observability (Archify)</a>
-    </div>
-  </div>
-
-  <a href="README.html" class="nav-readme">README</a>
-  <a href="DECISIONS.html" class="nav-readme">Decisiones</a>
-</nav>
-
-<style id="tmura-nav-style">
-  body { padding-top: 4rem !important; }
-  #tmura-nav {
-    position: fixed; top: 0; left: 0; right: 0; height: 4rem;
-    display: flex; align-items: center; gap: 1rem;
-    padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e;
-    z-index: 10000; font-family: system-ui, sans-serif;
-  }
-  #tmura-nav a.nav-home, #tmura-nav a.nav-readme { color: #7dd3fc; font-weight: 600; text-decoration: none; padding: 0.5rem 1rem; border-radius: 4px; }
-  #tmura-nav a.nav-home:hover, #tmura-nav a.nav-readme:hover { background: #1b2a40; color: #bae6fd; }
-  .dropdown { position: relative; display: inline-block; }
-  .dropbtn { background: transparent; color: #7dd3fc; font-weight: 600; border: none; cursor: pointer; padding: 0.5rem 1rem; font-size: 1rem; border-radius: 4px; font-family: inherit; }
-  .dropbtn:hover { background: #1b2a40; color: #bae6fd; }
-  .dropdown-content { display: none; position: absolute; background: #111c2e; min-width: 250px; box-shadow: 0 8px 16px rgba(0,0,0,0.5); border: 1px solid #26364e; border-radius: 8px; z-index: 10001; top: 100%; left: 0; }
-  .dropdown-content a { color: #e5edf8; padding: 0.75rem 1rem; text-decoration: none; display: block; font-size: 0.9rem; border-bottom: 1px solid #1b2a40; }
-  .dropdown-content a:last-child { border-bottom: none; }
-  .dropdown-content a:hover { background: #1b2a40; color: #7dd3fc; }
-  .dropdown:hover .dropdown-content { display: block; }
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
 </style>
-
-
-
-
-
-
-
-
+</head>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
+</nav>
 <main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
 <h1>ADR-001: Archify JSON IR Is the Single Source of Truth</h1>
 <ul>

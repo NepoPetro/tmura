@@ -10,6 +10,7 @@ This Wiki provides the conceptual and operational context that complements the t
 - [Architecture Context](Architecture-Context.html)
 - [Onboarding Guide](Onboarding-Guide.html)
 - [Evidence Standard](Evidence-Standard.html)
+- [Computational Evidence with Julia and SageMath](Computational-Evidence.html)
 
 ## Project Navigation
 
