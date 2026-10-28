@@ -32,10 +32,24 @@ function listHtmlFiles(directory) {
 
 function injectNavigation(filePath) {
   let html = readFileSync(filePath, 'utf8');
-  if (html.includes('<!-- NAV-INJECTED -->')) return;
+  const original = html;
+  if (/<head\b[^>]*>/i.test(html) && !/<base\b/i.test(html)) {
+    html = html.replace(/<head\b[^>]*>/i, (head) => `${head}\n  <base href="/tmura/">`);
+  }
+  if (filePath === join(DOCS_DIR, 'index.html')) {
+    if (html !== original) writeFileSync(filePath, html, 'utf8');
+    return;
+  }
+  if (/<nav\b/i.test(html)) {
+    if (html !== original) writeFileSync(filePath, html, 'utf8');
+    return;
+  }
+  if (html.includes('<!-- NAV-INJECTED -->')) {
+    if (html !== original) writeFileSync(filePath, html, 'utf8');
+    return;
+  }
 
   if (/<head\b[^>]*>/i.test(html)) {
-    html = html.replace(/<head\b[^>]*>/i, (head) => `${head}\n  <base href="/Tmura/">`);
     html = html.replace(/<\/head\s*>/i, `${NAV_STYLES}\n</head>`);
   }
 

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <base href="/tmura/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Tmura — Computational-Evidence</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', securityLevel: 'strict' });
+  </script>
+  <style>
+    :root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    body { margin: 0; padding-top: 4.5rem; background: #0b1220; color: #e5edf8; line-height: 1.7; }
+    nav { position: fixed; z-index: 10; inset: 0 0 auto; display: flex; align-items: center; gap: 1.5rem; min-height: 3.5rem; box-sizing: border-box; padding: .5rem max(1rem, calc((100vw - 960px) / 2)); background: #08101d; border-bottom: 1px solid #26364e; }
+    nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+    nav a:hover { color: #bae6fd; text-decoration: underline; }
+    main { box-sizing: border-box; width: min(100% - 2rem, 960px); margin: 3rem auto; padding: clamp(1.25rem, 4vw, 3rem); background: #111c2e; border: 1px solid #26364e; border-radius: 16px; }
+    h1, h2, h3, h4 { color: #f7fbff; line-height: 1.25; }
+    h1 { font-size: clamp(2rem, 5vw, 3rem); }
+    a { color: #7dd3fc; }
+    a:hover { color: #bae6fd; }
+    img { max-width: 100%; height: auto; }
+    pre, code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; }
+    pre:not(.mermaid) { overflow-x: auto; padding: 1rem; background: #08101d; border: 1px solid #26364e; border-radius: 10px; }
+    :not(pre) > code { padding: .15em .35em; background: #1b2a40; border-radius: 5px; }
+    blockquote { margin-inline: 0; padding: .25rem 1rem; border-left: 3px solid #38bdf8; color: #b9c9dc; }
+    table { display: block; overflow-x: auto; border-collapse: collapse; }
+    th, td { padding: .55rem .8rem; border: 1px solid #33445c; text-align: left; }
+    th { background: #1b2a40; }
+    hr { border: 0; border-top: 1px solid #33445c; margin: 2rem 0; }
+    .mermaid { overflow-x: auto; padding: 1rem; text-align: center; background: #0d1727; border: 1px solid #26364e; border-radius: 10px; }
+    @media (max-width: 600px) { main { width: 100%; margin: 0; border-radius: 0; border-inline: 0; } }
+  </style>
+<style>
+  nav { position: fixed; top: 0; left: 0; right: 0; height: 4rem; display: flex; align-items: center; gap: 1.5rem; padding: 0 2rem; background: #08101d; border-bottom: 1px solid #26364e; z-index: 9999; font-family: system-ui, sans-serif; }
+  nav a { color: #7dd3fc; font-weight: 600; text-decoration: none; }
+  nav a:hover { color: #bae6fd; text-decoration: underline; }
+</style>
+</head>
+<body style="padding-top: 4rem;">
+<!-- NAV-INJECTED -->
+<nav aria-label="Main navigation">
+  <a href="index.html">Home</a>
+  <a href="wiki/Home.html">Wiki</a>
+  <a href="DECISIONS.html">ADRs</a>
+  <a href="README.html">README</a>
+  <a href="diagrams/authentication-platform.html">Lineage Diagram</a>
+</nav>
+<main style='padding-top: 4.5rem; max-width: 960px; margin: 0 auto;'>
+<h1>Computational Evidence with Julia and SageMath</h1>
+<h2>Status</h2>
+<p>Julia and SageMath are the project&#39;s preferred free and open-source environments for computational evidence. They are intended to support reproducible analyses, proof-of-concepts, and mathematical or cryptographic exploration. The choice of tool must match the claim being supported; a computational result alone is not a formal proof of a system&#39;s correctness.</p>
+<h2>Tool roles</h2>
+<ul>
+<li><strong>Julia</strong> is used for numerical experiments, simulations, and analyses that benefit from a general-purpose, high-performance language.</li>
+<li><strong>SageMath</strong> is used for symbolic mathematics, algebra, number theory, and related computations through its integrated open-source environment.</li>
+</ul>
+<p>These roles are guidance, not a restriction. A project may use either tool when it provides the clearest, auditable evidence for the question at hand.</p>
+<h2>Evidence requirements</h2>
+<p>Each computational artifact should:</p>
+<ol>
+<li>State the question, assumptions, inputs, and conclusion.</li>
+<li>Include the source code or notebook and identify its required Julia packages or SageMath version.</li>
+<li>Record relevant tool and dependency versions, along with instructions to reproduce the result.</li>
+<li>Keep generated outputs or expected results where they help a reviewer compare a rerun.</li>
+<li>Separate measured or computed observations from interpretation and claims of proof.</li>
+<li>Avoid secrets and private production data; use synthetic or appropriately sanitized inputs.</li>
+</ol>
+<p>Reviewers should be able to inspect the source and run the artifact with the documented environment. When exact reproducibility depends on platform, randomness, or external data, document those limits and provide seeds or immutable input snapshots where practical.</p>
+<h2>Relationship to ADRs</h2>
+<p>When an ADR relies on computational evidence, link the artifact from the ADR and explain which claim it supports. A notebook or script supplements the decision record; it does not replace the rationale, alternatives, consequences, or review in the ADR itself.</p>
+<h2>Previous proposal</h2>
+<p><a href="Evidence-Standard.html">Evidence Standard: Mathematica</a> records the rejected proposal and why the project chose tools that contributors can access and audit without proprietary licensing.</p>
+
+  </main>
+</body>
+</html>
