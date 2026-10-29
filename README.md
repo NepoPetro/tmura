@@ -8,25 +8,25 @@ Bridge between [Archify](https://github.com/tt-a1i/archify) JSON IR and multiple
 
 flowchart TD
 
-subgraph group_sources["Diagram Sources"]
+subgraph group_sources ["Diagram Sources"]
   node_executive["Executive Views"]
   node_detailed["Detailed Views"]
   node_lineage["Auth Lineage"]
 end
 
-subgraph group_validation["Validation"]
-  node_validator["Archify Validator<br>validator.js"]
+subgraph group_validation ["Validation"]
+  node_validator["Archify Validator - validator.js"]
   node_archify["Archify CLI"]
 end
 
-subgraph group_conversion["Format Conversion"]
-  node_drawio_converter["draw.io Converter<br>to-drawio.js"]
-  node_mermaid_converter["Mermaid Converter<br>to-mermaid.js"]
+subgraph group_conversion ["Format Conversion"]
+  node_drawio_converter["draw.io Converter - to-drawio.js"]
+  node_mermaid_converter["Mermaid Converter - to-mermaid.js"]
   node_drawio_export["draw.io Export"]
   node_mermaid_export["Mermaid Export"]
 end
 
-subgraph group_presentation["Presentation"]
+subgraph group_presentation ["Presentation"]
   node_archify_html["Archify HTML"]
   node_custom_html["Custom HTML"]
 end
@@ -57,6 +57,7 @@ classDef toneMint fill:#dcfce7,stroke:#16a34a,stroke-width:1.5px,color:#14532d
 classDef toneRose fill:#ffe4e6,stroke:#e11d48,stroke-width:1.5px,color:#881337
 classDef toneIndigo fill:#e0e7ff,stroke:#4f46e5,stroke-width:1.5px,color:#312e81
 classDef toneTeal fill:#ccfbf1,stroke:#0f766e,stroke-width:1.5px,color:#134e4a
+
 class node_executive,node_detailed,node_lineage,node_browser toneBlue
 class node_validator,node_archify toneAmber
 class node_drawio_converter,node_mermaid_converter,node_drawio_export,node_mermaid_export toneMint
