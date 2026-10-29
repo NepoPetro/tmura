@@ -4,6 +4,8 @@ Bridge between [Archify](https://github.com/tt-a1i/archify) JSON IR and multiple
 
 **Tmura** (תְּמוּרָה, "bridge" in Hebrew) is a satellite project of [Imut (1DFlfRMH)](https://github.com/nepopetro/1DFlfRMH), a data governance and digital rights platform. Tmura produces the data lineage diagrams that Imut requires as deliverables: an executive view for communication, and a detailed view for engineering and audit.
 
+[![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/nepopetro/tmura?utm_source=readme&utm_medium=badge)
+
 ## Why this project exists
 
 Imut needed to produce a data lineage diagram that reflects the actual end-to-end flow of authentication data across seven layers: origin, processing, security, storage, failures, observability, and events.
