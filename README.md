@@ -5,7 +5,7 @@ Bridge between [Archify](https://github.com/tt-a1i/archify) JSON IR and multiple
 **Tmura** (תְּמוּרָה, "bridge" in Hebrew) is a satellite project of [Imut (1DFlfRMH)](https://github.com/nepopetro/1DFlfRMH), a data governance and digital rights platform. Tmura produces the data lineage diagrams that Imut requires as deliverables: an executive view for communication, and a detailed view for engineering and audit.
 
 [![Architecture diagram](https://gitdiagram.com/diagram-badge.svg)](https://gitdiagram.com/nepopetro/tmura?utm_source=readme&utm_medium=badge)
-``` Mermaid
+
 flowchart TD
 
 subgraph group_sources["Diagram Sources"]
@@ -62,7 +62,7 @@ class node_validator,node_archify toneAmber
 class node_drawio_converter,node_mermaid_converter,node_drawio_export,node_mermaid_export toneMint
 class node_archify_html,node_custom_html toneRose
 class node_author,node_diagrams_net toneIndigo
-```
+
 
 ## Why this project exists
 
